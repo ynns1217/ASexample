@@ -27,7 +27,7 @@ class ClassB
 
 class MainApp
 {
-    static void 1Main()
+    static void Main()
     {
         Console.WriteLine($"Global.Count : {Global.Count}");
 
