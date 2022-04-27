@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 //클래스는 왠만하면 자기의 일은 스스로하자.
 //캡슐화
-class Player
-{
-    int AT = 10;
-    int HP = 50;
-    int MAXHP = 100;
 
+class Fighter
+{
+
+    public int AT = 10;
+    public int HP = 50;
+    public int MAXHP = 100;
     public void StatusRender()
     {
         Console.WriteLine("===============================================");
@@ -26,10 +27,19 @@ class Player
         Console.ReadKey();
     }
 
-    public int MaxHeal(/*Player this*/)
+    public void MaxHeal(/*Player this*/)
     {
-        this.HP = MAXHP;
-        return HP;
+        if (HP >= MAXHP)
+        {
+            Console.Write("");
+            Console.Write("체력이 모드 회복되어있어서 회복할 필요가 없습니다.");
+            Console.ReadKey();
+        }
+        else
+        {
+            this.HP = MAXHP;
+            PrintHP();
+        }
     }
 
     //두번 이상 쓸때는 함수로 만들어라
@@ -40,13 +50,30 @@ class Player
         Console.WriteLine("입니다.");
         Console.ReadKey();
     }
-    public void Attack()
-    {
-        this.AT += 10; 
-    }
+
 }
 
-class Monster
+class Player :Fighter
+{
+    int Heal;
+    public void Healing()
+    {
+        if (HP >= MAXHP)
+        {
+            Console.Write("");
+            Console.Write("체력이 모드 회복되어있어서 회복할 필요가 없습니다.");
+            Console.ReadKey();
+        }
+        else
+        {
+            this.HP += Heal;
+            PrintHP();
+        }
+    }
+
+}
+
+class Monster:Fighter
 {
 
 }
@@ -90,7 +117,7 @@ namespace TextRpg001
                     Console.ReadKey();
 
             }
-        }
+        } 
 
         static void Town(Player player)
         {
@@ -102,11 +129,15 @@ namespace TextRpg001
                 Console.WriteLine("1. 체력을 회복한다");
                 Console.WriteLine("2. 무기를 강화한다.");
                 Console.WriteLine("3. 마을을 나간다.");
+                //초반에 프로그래밍의 전부.
+                //객체를 선언해야 할때
+                //함수의 분기
+                //함수의 합칠때와 쪼갤때
+
                 switch (Console.ReadKey().Key)
                 {
                     case ConsoleKey.D1:
                         player.MaxHeal();
-                        player.PrintHP();
                         break;
                     case ConsoleKey.D2:
                         break;
